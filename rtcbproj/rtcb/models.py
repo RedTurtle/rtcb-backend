@@ -28,12 +28,28 @@ class Player(models.Model):
     )
 
 
-class Days(models.Model):
-    date_matchs = models.DateField(
-        'data del rapporto di campionamento',
-        default=datetime.today,
+class Tournament(models.Model):
+    title = models.CharField(
+        max_length=50,
+        null=True,
         blank=True,
-        null=True
+    )
+
+
+class Round(models.Model):
+    title = models.CharField(
+        max_length=50,
+        null=True,
+        blank=True,
+    )
+    counter = models.PositiveIntegerField(
+        default=0
+    )
+    tournament = models.ForeignKey(
+        Tournament,
+        related_name='tournament',
+        null=True,
+        on_delete=models.CASCADE,
     )
 
 
@@ -55,9 +71,9 @@ class Match(models.Model):
         null=True,
         on_delete=models.SET_NULL
     )
-    day_match = models.ForeignKey(
-        Days,
-        related_name='day_match',
+    match_day = models.ForeignKey(
+        Round,
+        related_name='match_day',
         on_delete=models.CASCADE,
         null=True,
     )
