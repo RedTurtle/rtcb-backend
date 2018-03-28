@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "rtcbproj.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "rtcbproj.config.settings")
 
 application = get_wsgi_application()
