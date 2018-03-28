@@ -38,6 +38,14 @@ class Query(graphene.ObjectType):
     )
     player = graphene.Node.Field(Player)
 
+    # Team
+    # Player
+    teams = DjangoConnectionField(
+        Team,
+        description="all team"
+    )
+    team = graphene.Node.Field(Team)
+
 
 class Mutation(graphene.ObjectType):
     """ Mutation entry point graphQL.

@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 
 ROLES = (
     ('', ''),
@@ -27,7 +28,21 @@ class Player(models.Model):
     )
 
 
+class Days(models.Model):
+    date_matchs = models.DateField(
+        'data del rapporto di campionamento',
+        default=datetime.today,
+        blank=True,
+        null=True
+    )
+
+
 class Match(models.Model):
+    location = models.CharField(
+        max_length=50,
+        null=True,
+        blank=True,
+    )
     team_a = models.ForeignKey(
         Team,
         related_name="matches_a",
@@ -39,4 +54,10 @@ class Match(models.Model):
         related_name="matches_b",
         null=True,
         on_delete=models.SET_NULL
+    )
+    day_match = models.ForeignKey(
+        Days,
+        related_name='day_match',
+        on_delete=models.CASCADE,
+        null=True,
     )
