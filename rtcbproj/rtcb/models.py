@@ -1,5 +1,11 @@
 from django.db import models
 
+ROLES = (
+    ('', ''),
+    ('D', 'Defender'),
+    ('S', 'Striker')
+)
+
 
 class Team(models.Model):
     team_name = models.CharField(max_length=50)
@@ -8,6 +14,11 @@ class Team(models.Model):
 class Player(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
+    role = models.CharField(
+        max_length=1,
+        choices=ROLES,
+        default=u'',
+    )
     team = models.ForeignKey(
         Team,
         null=True,
