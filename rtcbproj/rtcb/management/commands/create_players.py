@@ -28,6 +28,6 @@ def create_players(self):
         new_player.save()
         teams = Team.objects.all()
         for team in teams:
-            if team.players.count() <= 2:
+            if team.players.count() < 2:
                 new_player.team = team
         new_player.save()
