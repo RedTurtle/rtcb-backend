@@ -1,0 +1,12 @@
+*lib
+*bin
+*include
+*.Python
+*db.sqlite3
+*omissis.py
+*.pyc
+*pip-selfcheck.json
+*migrations/
+.DS_Store
+
+build-*
