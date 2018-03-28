@@ -8,5 +8,5 @@
 *pip-selfcheck.json
 *migrations/
 .DS_Store
-
+share
 build-*
