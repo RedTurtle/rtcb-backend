@@ -10,6 +10,9 @@ def root(*dirs):
     return abspath(join(base_dir, *dirs))
 
 
+DEBUG = True
+
+
 BASE_DIR = root()
 
 
