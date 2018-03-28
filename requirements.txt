@@ -1,0 +1,9 @@
+django==1.11.10
+graphene_django==2.0.0
+graphene==2.0.1
+graphql-core==2.0
+graphql-relay==0.4.5
+django-filter==1.1.0
+django-cors-headers==2.1.0
+psycopg2==2.7.3.2
+gunicorn==19.7.1
