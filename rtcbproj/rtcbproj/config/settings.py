@@ -18,7 +18,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rtcb',
+
+    'graphene_django',
 ]
+
+GRAPHENE = {
+    'SCHEMA': 'rtcb.schema.schema',
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
