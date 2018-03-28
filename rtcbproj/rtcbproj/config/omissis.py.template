@@ -1,0 +1,31 @@
+# -*- coding: utf-8 -*-
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = ''
+
+# Database
+# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
+
+# Create un DB in postgres da usare per il progetto: CREATE DATABASE nome_db;
+# Create eventualmente un utente che non sia admin e dategli accesso:
+# GRANT CONNECT ON DATABASE nome_db TO nome_utente;
+
+# Postgres
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': '',  # nome del DB
+#         'USER': '',
+#         'PASSWORD': '',
+#         'HOST': 'localhost',
+#         'PORT': '',
+#     }
+# }
+
+# sqlite3
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
