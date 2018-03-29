@@ -19,7 +19,6 @@ class CustomUserManager(BaseUserManager):
     use_in_migrations = True
 
     # Metodo originale di django
-    # https://github.com/django/django/blob/821e304cc45182af85ff4fbe99ff85398a504d63/django/contrib/auth/models.py#L134  # noqa
     def _create_user(self, username, email, password, **extra_fields):
         """
         Create and save a user with the given username, email, and password.
@@ -35,14 +34,12 @@ class CustomUserManager(BaseUserManager):
         return user
 
     # Metodo originale di django
-    # https://github.com/django/django/blob/821e304cc45182af85ff4fbe99ff85398a504d63/django/contrib/auth/models.py#L147  # noqa
     def create_user(self, username, email=None, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', False)
         extra_fields.setdefault('is_superuser', False)
         return self._create_user(username, email, password, **extra_fields)
 
     # Metodo originale di django
-    # https://github.com/django/django/blob/821e304cc45182af85ff4fbe99ff85398a504d63/django/contrib/auth/models.py#L152  # noqa
     def create_superuser(self, username, email, password, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
