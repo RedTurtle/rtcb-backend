@@ -11,6 +11,9 @@ ROLES = (
 class Team(models.Model):
     team_name = models.CharField(max_length=50)
 
+    def __str__(self):
+        return "<Team: {}>".format(self.team_name)
+
 
 class Player(models.Model):
     first_name = models.CharField(max_length=50)
@@ -26,6 +29,9 @@ class Player(models.Model):
         related_name="players",
         on_delete=models.SET_NULL
     )
+
+    def __str__(self):
+        return "<Player: {} {}>".format(self.first_name, self.last_name)
 
 
 class Tournament(models.Model):
@@ -77,3 +83,10 @@ class Match(models.Model):
         on_delete=models.CASCADE,
         null=True,
     )
+
+    def __str__(self):
+        return "<Match: {} VS. {}>".format(
+            self.team_a.team_name,
+            self.team_b.team_name
+            self.match_day
+        )
