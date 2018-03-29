@@ -52,6 +52,28 @@ nel ruolo opposto al preferito. Questi valori verranno usati nella generazione
 automatica delle squadre.
 
 
+## Script - comandi da poter utilizzare
+
+### populate
+
+Questo è uno script che popola il db con alcuni oggetti per testare l'applicativo.
+
+    python manage.py populate
+
+
+### blastdb
+
+**Questo script server per resettare il db dell'applicativo!** Non usarlo se si
+hanno dei dati che non si vogliono perdere.
+
+
+È scritto specificatamente per eliminare solo il db sqlite3 (quindi un altro
+database non verrebbe eliminato). Cancella anche tutti i file delle migrazioni
+dell'applicazione `rtcb`! **Non è reversibile**.
+
+    python manage.py blastdb
+
+
 ## TODO
 
 [] Generazione automatica delle squadre in base ai ruoli preferiti
