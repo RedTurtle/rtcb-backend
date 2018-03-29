@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from graphene_django import DjangoConnectionField
 from graphene_django import DjangoObjectType
-from .models import Match as match_model
-from .models import Player as player_model
-from .models import Team as team_model
+from .tournament.models import Match as match_model
+from .authentication.models import User as player_model
+from .team.models import Team as team_model
 
 import graphene
 
