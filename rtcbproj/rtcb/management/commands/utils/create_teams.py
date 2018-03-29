@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from rtcb.models import Team
+from rtcb.team.models import Team
 from faker import Faker
 
 
@@ -17,7 +17,12 @@ def create_teams(self):
 
     for i in range(5):
         new_team = Team(
-            team_name=fake.company()
+            name=fake.company()
         )
 
         new_team.save()
+        # teams = Team.objects.all()
+        # for team in teams:
+        #     if team.players.count() < 2:
+        #         new_player.team = team
+        # new_player.save()

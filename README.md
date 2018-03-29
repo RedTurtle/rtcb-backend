@@ -36,6 +36,22 @@ Attualmente non c'è bisogno di nessuna configurazione per il database. Il
 progetto è configurato per utilizzare un db sqlite3 (vedi i settings).
 
 
+## Modelli
+
+### User
+
+Il modello custom dell'utente (presente in `rtcb.authentication.models`) è
+quello che rappresenta il nostro player.
+
+Oltre ad avere uno username (e una password) ha anche altri due campi utili al
+nostro progetto: `role` e `versatile`.
+
+`role` specifica il ruolo preferito dal giocatore (che può essere Striker o
+Defender) mentre `versatile` indica se il giocatore è disposto anche a giocare
+nel ruolo opposto al preferito. Questi valori verranno usati nella generazione
+automatica delle squadre.
+
+
 ## TODO
 
 [] Generazione automatica delle squadre in base ai ruoli preferiti

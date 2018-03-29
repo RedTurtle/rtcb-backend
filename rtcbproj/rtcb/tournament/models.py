@@ -4,11 +4,13 @@ from rtcb.team.models import Team
 
 
 class Tournament(models.Model):
-    title = models.CharField(
+    name = models.CharField(
+        verbose_name="Tournament name",
         max_length=50,
-        null=True,
-        blank=True,
     )
+
+    def __str__(self):
+        return self.name
 
 
 class Round(models.Model):
@@ -17,9 +19,11 @@ class Round(models.Model):
         null=True,
         blank=True,
     )
+
     counter = models.PositiveIntegerField(
         default=0
     )
+
     tournament = models.ForeignKey(
         Tournament,
         related_name='tournament',
@@ -29,23 +33,30 @@ class Round(models.Model):
 
 
 class Match(models.Model):
+    class Meta:
+        verbose_name = "match"
+        verbose_name_plural = "matches"
+
     location = models.CharField(
         max_length=50,
         null=True,
         blank=True,
     )
+
     team_a = models.ForeignKey(
         Team,
         related_name="matches_a",
         null=True,
         on_delete=models.SET_NULL
     )
+
     team_b = models.ForeignKey(
         Team,
         related_name="matches_b",
         null=True,
         on_delete=models.SET_NULL
     )
+
     match_day = models.ForeignKey(
         Round,
         related_name='match_day',
@@ -54,7 +65,7 @@ class Match(models.Model):
     )
 
     def __str__(self):
-        return "<Match: {} VS. {}>".format(
+        return "Match: {} VS. {}".format(
             self.team_a.team_name,
             self.team_b.team_name,
             self.match_day,

@@ -2,7 +2,6 @@
 
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
-from rtcb.team.models import Team
 
 
 ROLES = (
@@ -19,7 +18,6 @@ class CustomUserManager(BaseUserManager):
     use_in_migrations = True
 
     # Metodo originale di django
-    # https://github.com/django/django/blob/821e304cc45182af85ff4fbe99ff85398a504d63/django/contrib/auth/models.py#L134  # noqa
     def _create_user(self, username, email, password, **extra_fields):
         """
         Create and save a user with the given username, email, and password.
@@ -35,14 +33,12 @@ class CustomUserManager(BaseUserManager):
         return user
 
     # Metodo originale di django
-    # https://github.com/django/django/blob/821e304cc45182af85ff4fbe99ff85398a504d63/django/contrib/auth/models.py#L147  # noqa
     def create_user(self, username, email=None, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', False)
         extra_fields.setdefault('is_superuser', False)
         return self._create_user(username, email, password, **extra_fields)
 
     # Metodo originale di django
-    # https://github.com/django/django/blob/821e304cc45182af85ff4fbe99ff85398a504d63/django/contrib/auth/models.py#L152  # noqa
     def create_superuser(self, username, email, password, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
@@ -64,17 +60,6 @@ class User(AbstractUser):
 
     objects = CustomUserManager()
 
-    def group_list(self):
-        """ Questo metodo ritorna la lista dei gruppi a cui l'utente appartiene.
-
-        Usato in alcuni punti dei template per decidere se mostrare $cose.
-        """
-        grp_list = []
-        for group in self.groups.all():
-            grp_list.append(group.name)
-
-        return grp_list
-
     def is_member(self, groupname):
         """ Questo metodo controlla se User fa parte del gruppo <groupname>.
         Restituisce True in caso positivo.
@@ -82,14 +67,14 @@ class User(AbstractUser):
         return self.groups.filter(name=groupname).exists()
 
     role = models.CharField(
+        verbose_name="Primary role (favorite)",
         max_length=1,
         choices=ROLES,
-        default=u'',
+        default='',
     )
 
-    team = models.ForeignKey(
-        Team,
-        null=True,
-        related_name="players",
-        on_delete=models.SET_NULL
-    )
+    versatile = models.BooleanField(
+        verbose_name="Can switch role?",
+        default=False,
+        help_text='This flag is selected if the player can also play '
+                  'as the not favorite role.')

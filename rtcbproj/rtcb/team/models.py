@@ -1,9 +1,24 @@
 # -*- coding: utf-8 -*-
 from django.db import models
+from rtcb.authentication.models import User
 
 
 class Team(models.Model):
-    team_name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
+
+    defender = models.ForeignKey(
+        User,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="defender_player",
+    )
+
+    striker = models.ForeignKey(
+        User,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="striker_player",
+    )
 
     def __str__(self):
-        return "<Team: {}>".format(self.team_name)
+        return "Team: {}".format(self.team_name)
