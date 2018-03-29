@@ -2,7 +2,6 @@
 
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
-from rtcb.team.models import Team
 
 
 ROLES = (
@@ -61,17 +60,6 @@ class User(AbstractUser):
 
     objects = CustomUserManager()
 
-    def group_list(self):
-        """ Questo metodo ritorna la lista dei gruppi a cui l'utente appartiene.
-
-        Usato in alcuni punti dei template per decidere se mostrare $cose.
-        """
-        grp_list = []
-        for group in self.groups.all():
-            grp_list.append(group.name)
-
-        return grp_list
-
     def is_member(self, groupname):
         """ Questo metodo controlla se User fa parte del gruppo <groupname>.
         Restituisce True in caso positivo.
@@ -79,14 +67,14 @@ class User(AbstractUser):
         return self.groups.filter(name=groupname).exists()
 
     role = models.CharField(
+        verbose_name="Primary role (favorite)",
         max_length=1,
         choices=ROLES,
-        default=u'',
+        default='',
     )
 
-    team = models.ForeignKey(
-        Team,
-        null=True,
-        related_name="players",
-        on_delete=models.SET_NULL
-    )
+    versatile = models.BooleanField(
+        verbose_name="Can switch role?",
+        default=False,
+        help_text='This flag is selected if the player can also play '
+                  'as the not favorite role.')
