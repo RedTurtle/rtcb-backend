@@ -11,7 +11,5 @@ class Command(BaseCommand):
     flush = True
 
     def handle(self, *args, **options):
-        # self.stdout.write(self.style.NOTICE("** Populating Legionella DB "
-        #                                     "with dummy data **"))
         create_teams(self)
         create_players(self)
