@@ -19,7 +19,8 @@ Il Progetto si basa su:
     vi rtcbproj/config/omissis.py
 
 
-Compilate la variabile `SECRET_KEY` con una stringa casuae molto lunga.
+Compilate la variabile `SECRET_KEY` con una stringa alfanumerica casuale
+molto lunga.
 
 
 Proseguite con:
@@ -33,3 +34,9 @@ Proseguite con:
 
 Attualmente non c'è bisogno di nessuna configurazione per il database. Il
 progetto è configurato per utilizzare un db sqlite3 (vedi i settings).
+
+
+## TODO
+
+[] Generazione automatica delle squadre in base ai ruoli preferiti
+[] Generazione automatica dei turni
