@@ -87,6 +87,6 @@ class Match(models.Model):
     def __str__(self):
         return "<Match: {} VS. {}>".format(
             self.team_a.team_name,
-            self.team_b.team_name
-            self.match_day
+            self.team_b.team_name,
+            self.match_day,
         )
