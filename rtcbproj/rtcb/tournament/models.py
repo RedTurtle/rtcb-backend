@@ -35,6 +35,24 @@ class Round(models.Model):
     )
 
 
+class MatchScore(models.Model):
+
+    team = models.ForeignKey(
+        Team,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="team_id",
+    )
+    score = models.PositiveIntegerField(
+        default=0
+    )
+    color = models.CharField(
+        max_length=4,
+        null=True,
+        blank=True,
+    )
+
+
 class Match(models.Model):
     class Meta:
         verbose_name = "match"
@@ -49,17 +67,17 @@ class Match(models.Model):
     )
 
     red_team = models.ForeignKey(
-        Team,
-        related_name="matches_a",
+        MatchScore,
+        related_name="red_score",
         null=True,
-        on_delete=models.SET_NULL
+        on_delete=models.CASCADE
     )
 
     blue_team = models.ForeignKey(
-        Team,
-        related_name="matches_b",
+        MatchScore,
+        related_name="blue_score",
         null=True,
-        on_delete=models.SET_NULL
+        on_delete=models.CASCADE
     )
 
     match_day = models.ForeignKey(
@@ -80,16 +98,6 @@ class Match(models.Model):
         default=False,
         null=False,
         verbose_name="Is the match ended?",
-    )
-
-    red_score = models.PositiveIntegerField(
-        default=0,
-        null=False,
-    )
-
-    blue_score = models.PositiveIntegerField(
-        default=0,
-        null=False,
     )
 
     def __str__(self):
