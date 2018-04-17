@@ -21,4 +21,4 @@ class Team(models.Model):
     )
 
     def __str__(self):
-        return "Team: {}".format(self.team_name)
+        return "Team: {}".format(self.name)
