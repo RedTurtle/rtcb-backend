@@ -14,6 +14,9 @@ class Tournament(models.Model):
 
 
 class Round(models.Model):
+    """ Giornata del torneo
+    """
+
     title = models.CharField(
         max_length=50,
         null=True,
