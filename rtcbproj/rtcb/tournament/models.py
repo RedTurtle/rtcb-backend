@@ -43,17 +43,19 @@ class Match(models.Model):
     location = models.CharField(
         max_length=50,
         null=True,
+        default="Sala Relax",
+        verbose_name="Locashon",
         blank=True,
     )
 
-    team_a = models.ForeignKey(
+    red_team = models.ForeignKey(
         Team,
         related_name="matches_a",
         null=True,
         on_delete=models.SET_NULL
     )
 
-    team_b = models.ForeignKey(
+    blue_team = models.ForeignKey(
         Team,
         related_name="matches_b",
         null=True,
@@ -65,6 +67,29 @@ class Match(models.Model):
         related_name='match_day',
         on_delete=models.CASCADE,
         null=True,
+    )
+
+    tournament_id = models.ForeignKey(
+        Tournament,
+        null=True,
+        on_delete=models.CASCADE,
+        related_name="tournament_id",
+    )
+
+    match_ended = models.BooleanField(
+        default=False,
+        null=False,
+        verbose_name="Is the match ended?",
+    )
+
+    red_score = models.PositiveIntegerField(
+        default=0,
+        null=False,
+    )
+
+    blue_score = models.PositiveIntegerField(
+        default=0,
+        null=False,
     )
 
     def __str__(self):
