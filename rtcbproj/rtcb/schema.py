@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from graphene_django import DjangoConnectionField
 from graphene_django import DjangoObjectType
-from .tournament.models import Match as match_model
 from .authentication.models import User as player_model
 from .team.models import Team as team_model
+from .tournament import mutations as MatchMutations
 
 import graphene
 
@@ -17,12 +17,6 @@ class Player(DjangoObjectType):
 class Team(DjangoObjectType):
     class Meta:
         model = team_model
-        interfaces = (graphene.Node, )
-
-
-class Match(DjangoObjectType):
-    class Meta:
-        model = match_model
         interfaces = (graphene.Node, )
 
 
@@ -48,11 +42,12 @@ class Query(graphene.ObjectType):
 
 
 class Mutation(graphene.ObjectType):
-    """ Mutation entry point graphQL.
-    """
-    pass
+    """ Mutation entry point graphQL"""
+
+    create_match = MatchMutations.CreateMatch.Field()
 
 
 schema = graphene.Schema(
     query=Query,
+    mutation=Mutation
 )
