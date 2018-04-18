@@ -3,9 +3,8 @@
 import graphene
 from .schema import Team
 from graphene import relay
-from .models import Team as TeamModel
 from .service import TeamService
-from rtcb.utils import extract_value_from_input
+
 
 class CreateTeam(relay.ClientIDMutation):
     """

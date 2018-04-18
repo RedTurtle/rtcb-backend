@@ -8,4 +8,3 @@ class Team(DjangoObjectType):
     class Meta:
         model = TeamModel
         interfaces = (graphene.Node, )
-
