@@ -38,7 +38,8 @@ Richiedere un elemento specifico tramite id:
     }
 
 
-Aggiornare le info di una squadra:
+Aggiornare le info di una squadra. In questo esempio usiamo ID misti, sia
+del db, sia quelli di graphql:
 
 
 .. code-block:: javascript
@@ -46,6 +47,8 @@ Aggiornare le info di una squadra:
     mutation{
       updateTeam (input: {
         name: "Nuovo nome",
+        striker: "UGxheWVyOjE=",
+        defender: "3",
         teamId: "VGVhbTox",
       }) {
         ok

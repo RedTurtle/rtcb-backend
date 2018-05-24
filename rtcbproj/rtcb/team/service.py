@@ -2,6 +2,7 @@
 
 from .models import Team as TeamModel
 from django.core.exceptions import ObjectDoesNotExist
+from graphql import GraphQLError
 from rtcb.authentication.models import User
 from rtcb.utils import extract_value_from_input
 
@@ -12,7 +13,18 @@ class TeamService(object):
         """ Funzione di utilità per recuperare un utente in base all'id.
         """
 
+        input_id = {
+            'user': user_id,
+        }
 
+        player = extract_value_from_input(
+            input=input_id,
+            field_id='user',
+            model_type='Player',
+            model=User
+        )
+
+        return player
 
     def create_team(self, inputs):
         """Crea una nuova squadra (Team)
@@ -64,6 +76,10 @@ class TeamService(object):
 
         if inputs.get('name', None):
             team_to_update.name = inputs.get('name')
+        if inputs.get('defender', None):
+            team_to_update.defender = self._get_player(inputs.get('defender'))
+        if inputs.get('striker', None):
+            team_to_update.striker = self._get_player(inputs.get('striker'))
 
         team_to_update.save()
         return team_to_update
