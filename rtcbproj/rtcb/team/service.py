@@ -83,3 +83,18 @@ class TeamService(object):
 
         team_to_update.save()
         return team_to_update
+
+    def delete_team(self, inputs):
+        try:
+            team_to_delete = extract_value_from_input(
+                input=inputs,
+                field_id='team_id',
+                model_type='Team',
+                model=TeamModel,
+            )
+        except ObjectDoesNotExist:
+            raise GraphQLError(
+                u'Problemi durante il recupero di una squadra.'
+            )
+
+        return team_to_delete.delete()

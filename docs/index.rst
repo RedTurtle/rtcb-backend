@@ -55,3 +55,16 @@ del db, sia quelli di graphql:
         clientMutationId
       }
     }
+
+
+Eliminare una squadra:
+
+.. code-block:: javascript
+
+    mutation{
+      deleteTeam (input:{
+        teamId: "VGVhbToxMA==",
+      }) {
+        ok
+      }
+    }

@@ -7,8 +7,7 @@ from .service import TeamService
 
 
 class CreateTeam(relay.ClientIDMutation):
-    """
-    Mutation to team creation
+    """ Mutation for team creation
     """
 
     class Input:
@@ -27,6 +26,8 @@ class CreateTeam(relay.ClientIDMutation):
 
 
 class UpdateTeam(relay.ClientIDMutation):
+    """ Mutation for updating a Team infos
+    """
 
     class Input:
         team_id = graphene.ID(required=True)
@@ -45,3 +46,19 @@ class UpdateTeam(relay.ClientIDMutation):
             team=updatedteam,
             ok=bool(updatedteam.id)
         )
+
+
+class DeleteTeam(relay.ClientIDMutation):
+    """ Mutation for deleting a Team
+    """
+
+    class Input:
+        team_id = graphene.ID(required=True)
+
+    ok = graphene.Boolean()
+
+    @classmethod
+    def mutate_and_get_payload(cls, root, info, **input):
+        teamservice = TeamService()
+        object_deleted = teamservice.delete_team(input)
+        return DeleteTeam(ok=True if (object_deleted[0] == 1) else False)
