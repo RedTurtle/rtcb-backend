@@ -24,3 +24,24 @@ class CreateTeam(relay.ClientIDMutation):
         teamservice = TeamService()
         newteam = teamservice.create_team(input)
         return CreateTeam(team=newteam, ok=bool(newteam.id))
+
+
+class UpdateTeam(relay.ClientIDMutation):
+
+    class Input:
+        team_id = graphene.ID(required=True)
+        name = graphene.String()
+        defender = graphene.ID()
+        striker = graphene.ID()
+
+    ok = graphene.Boolean()
+    team = graphene.Field(Team)
+
+    @classmethod
+    def mutate_and_get_payload(cls, root, info, **input):
+        teamservice = TeamService()
+        updatedteam = teamservice.update_team(input)
+        return UpdateTeam(
+            team=updatedteam,
+            ok=bool(updatedteam.id)
+        )

@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+
+from django.core.exceptions import ObjectDoesNotExist
+from graphene import Node
+
+
 def extract_value_from_input(input, field_id, model_type, model):
     """
     BBB: metodo utilizzato ampiamente nelle mutation per controllare gli ID che
