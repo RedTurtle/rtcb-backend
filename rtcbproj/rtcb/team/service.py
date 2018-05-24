@@ -1,13 +1,23 @@
 # -*- coding: utf-8 -*-
 
 from .models import Team as TeamModel
+from django.core.exceptions import ObjectDoesNotExist
 from rtcb.authentication.models import User
 from rtcb.utils import extract_value_from_input
 
 
 class TeamService(object):
 
+    def _get_player(self, user_id):
+        """ Funzione di utilità per recuperare un utente in base all'id.
+        """
+
+
+
     def create_team(self, inputs):
+        """Crea una nuova squadra (Team)
+        """
+        # TOTEST
         name = inputs.get('name')
         defender = extract_value_from_input(
             input=inputs,
@@ -30,3 +40,30 @@ class TeamService(object):
         )
         new_team.save()
         return new_team
+
+    def update_team(self, inputs):
+        """Aggiorna una squadra esistente (Team)
+
+        inputs:
+            dict con i parametri per l'aggiornamento
+        """
+        # TOTEST
+
+        try:
+            if inputs.get('team_id', None):
+                team_to_update = extract_value_from_input(
+                    input=inputs,
+                    field_id='team_id',
+                    model_type='Team',
+                    model=TeamModel,
+                )
+        except ObjectDoesNotExist:
+            raise GraphQLError(
+                u'Problemi durante il recupero di una squadra.'
+            )
+
+        if inputs.get('name', None):
+            team_to_update.name = inputs.get('name')
+
+        team_to_update.save()
+        return team_to_update

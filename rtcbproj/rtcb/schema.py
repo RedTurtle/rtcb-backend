@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from .authentication.models import User as player_model
-from .team.mutation import CreateTeam
+from .team.mutation import CreateTeam, UpdateTeam
 from .team.schema import Team
 from .tournament import mutations as MatchMutations
 from graphene_django import DjangoConnectionField
@@ -40,6 +40,7 @@ class Mutation(graphene.ObjectType):
     """ Mutation entry point graphQL"""
 
     create_team = CreateTeam.Field()
+    update_team = UpdateTeam.Field()
     create_match = MatchMutations.CreateMatch.Field()
 
 
