@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 from ...tournament.mutations import CreateMatch
+from ...schema import schema
+from ...management.commands import populate
+from django.test import TestCase
 
 import pytest
 import graphene
@@ -11,21 +14,41 @@ def test_no_mutate_and_get_payload():
         class MyMutation(graphene.ClientIDMutation):
             pass
 
-    assert "MyMutation.mutate_and_get_payload method is required in a ClientIDMutation." == str(
+    assert "MyMutation.mutate_and_get_payload method is required in a ClientIDMutation." == str(  # noqa
         excinfo.value)
 
 
-def test_create_mutation():
-    fields = CreateMatch._meta.fields
-    assert list(fields.keys()) == ['ok', 'match', 'client_mutation_id']
-    assert CreateMatch._meta.name == "CreateMatchPayload"
-    # assert isinstance(fields['phrase'], Field)
-    # field = SaySomething.Field()
-    # assert field.type == SaySomething
-    # assert list(field.args.keys()) == ['input']
-    # assert isinstance(field.args['input'], Argument)
-    # assert isinstance(field.args['input'].type, NonNull)
-    # assert field.args['input'].type.of_type == SaySomething.Input
-    # assert isinstance(fields['client_mutation_id'], Field)
-    # assert fields['client_mutation_id'].name == 'clientMutationId'
-    # assert fields['client_mutation_id'].type == String
+def test_mutation_input():
+    Input = CreateMatch.Input
+    fields = Input._meta.fields
+    assert list(fields.keys()) == [
+        'location', 'red_team', 'blue_team',
+        'match_day', 'tournament_id', 'match_ended', 'client_mutation_id']
+
+
+def populatedb_for_testing():
+    pop = populate.Command()
+    opts = {
+        'flush': True,
+    }
+    pop.handle(**opts)
+
+
+class TestMutation(TestCase):
+
+    def setUp(self):
+        """
+        Excecuted at the very start of the test suite.
+        """
+        populatedb_for_testing()
+
+    def tearDown(self):
+        """
+        Metti qui quello che vuoi venga eseguito al termine del test.
+        """
+
+    def test_prova_mutation(self):
+        executed = schema.execute(
+            'mutation {createMatch(input: {redTeam: "1", blueTeam: "1"}){ok, match{id, redTeam{id}}}}'  # noqa
+        )
+        assert not executed.errors

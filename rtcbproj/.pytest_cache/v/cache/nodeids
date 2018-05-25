@@ -1,4 +1,5 @@
 [
   "rtcb/test/mutations/test_match_mutations.py::test_no_mutate_and_get_payload",
-  "rtcb/test/mutations/test_match_mutations.py::test_create_mutation"
+  "rtcb/test/mutations/test_match_mutations.py::test_mutation_input",
+  "rtcb/test/mutations/test_match_mutations.py::test_prova_mutation"
 ]

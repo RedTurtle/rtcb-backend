@@ -4,6 +4,7 @@ from graphene_django import DjangoObjectType
 from .authentication.models import User as player_model
 from .team.models import Team as team_model
 from .tournament import mutations as MatchMutations
+from .tournament.schema import Match
 
 import graphene
 
@@ -39,6 +40,12 @@ class Query(graphene.ObjectType):
         description="all team"
     )
     team = graphene.Node.Field(Team)
+
+    # matchs = DjangoConnectionField(
+    #     Match,
+    #     description="all match"
+    # )
+    # match = graphene.Node.Field(Match)
 
 
 class Mutation(graphene.ObjectType):

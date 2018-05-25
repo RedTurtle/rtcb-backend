@@ -1,3 +1,4 @@
 {
-  "rtcb/test/mutations/test_match_mutations.py::test_create_mutation": true
+  "rtcb/test/mutations/test_match_mutations.py::test_node_query": true,
+  "rtcb/test/mutations/test_match_mutations.py::test_prova_mutation": true
 }
