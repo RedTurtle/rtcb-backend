@@ -27,7 +27,7 @@ Richiedere tutte le squadre:
     }
 
 
-Richiedere un elemento specifico tramite id:
+Richiedere una squadra specifica tramite id:
 
 .. code-block:: javascript
 
