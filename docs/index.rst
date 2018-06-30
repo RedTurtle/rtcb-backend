@@ -27,7 +27,7 @@ Richiedere tutte le squadre:
     }
 
 
-Richiedere un elemento specifico tramite id:
+Richiedere una squadra specifica tramite id:
 
 .. code-block:: javascript
 
@@ -36,6 +36,22 @@ Richiedere un elemento specifico tramite id:
         name
       }
     }
+
+
+Aggiungere una squadra:
+
+.. code-block:: javascript
+
+  mutation{
+    createTeam (input: {
+      name: "Saluti e baci",
+      defender: 1,
+      striker: 2,
+    }) {
+      ok
+      clientMutationId
+    }
+  }
 
 
 Aggiornare le info di una squadra. In questo esempio usiamo ID misti, sia
