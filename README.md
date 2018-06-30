@@ -76,6 +76,7 @@ dell'applicazione `rtcb`! **Non è reversibile**.
 
 ## TODO
 
-[] Ritornare l'ID del database di un Utente
-[] Generazione automatica delle squadre in base ai ruoli preferiti
-[] Generazione automatica dei turni
+- [ ] Team CRUD
+- [ ] Ritornare l'ID del database di un Utente
+- [ ] Generazione automatica delle squadre in base ai ruoli preferiti
+- [ ] Generazione automatica dei turni
