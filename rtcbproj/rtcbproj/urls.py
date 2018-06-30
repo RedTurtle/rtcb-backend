@@ -17,9 +17,10 @@ from django.contrib import admin
 from django.conf.urls import include
 from django.urls import path
 from django.conf.urls import url
-
+from rtcb.views import SiteRoot
 
 urlpatterns = [
     url(r'^graphql/', include('rtcb.urls')),
+    path('', SiteRoot.as_view()),
     path('admin/', admin.site.urls),
 ]
