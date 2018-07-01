@@ -62,7 +62,7 @@ class Match(models.Model):
         max_length=50,
         null=True,
         default="Sala Relax",
-        verbose_name="Locashon",
+        verbose_name="Location",
         blank=True,
     )
 
