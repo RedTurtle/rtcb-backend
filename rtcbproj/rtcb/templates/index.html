@@ -18,5 +18,19 @@
       <li><a href="/admin">Admin Panel</a></li>
     </ul>
 
+    <h3> Squadre / Teams </h3>
+    <ul>
+        {% for elem in teams %}
+            <li>{{ elem.name }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3> Utenti / Giocatori </h3>
+    <ul>
+        {% for elem in users %}
+            <li>{{ elem.username }}</li>
+        {% endfor %}
+    </ul>
+
   </body>
 </html>

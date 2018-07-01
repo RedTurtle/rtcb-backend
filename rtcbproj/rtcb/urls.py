@@ -7,5 +7,4 @@ from django.views.decorators.csrf import csrf_exempt
 
 urlpatterns = [
     url(r'^graphql', csrf_exempt(GraphQLView.as_view(graphiql=True))),
-    path('', views.index, name='index'),
 ]
