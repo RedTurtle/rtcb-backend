@@ -14,6 +14,12 @@ class Player(DjangoObjectType):
         model = player_model
         interfaces = (graphene.Node, )
 
+    id_db = graphene.ID()
+
+    def resolve_id_db(self, info, **input):
+        """ Ritorna  l'ID del db """
+        return self.id
+
 
 class Query(graphene.ObjectType):
 
