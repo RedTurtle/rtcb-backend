@@ -41,3 +41,24 @@ class CreateTournament(graphene.ClientIDMutation):
         matchService = MatchService()
         tournament = matchService.createTournament(input=input)
         return CreateTournament(tournament=tournament, ok=bool(tournament.id))
+
+
+class UpdateTournament(graphene.ClientIDMutation):
+    """ Mutation for updating a Tournament infos.
+    """
+
+    class Input:
+        tournament_id = graphene.ID(required=True)
+        name = graphene.String()
+
+    ok = graphene.Boolean()
+    tournament = graphene.Field(Tournament)
+
+    @classmethod
+    def mutate_and_get_payload(cls, root, info, **input):
+        matchService = MatchService()
+        updatedtournament = matchService.update_tournament(input)
+        return UpdateTournament(
+            tournament=updatedtournament,
+            ok=bool(updatedtournament.id)
+        )
