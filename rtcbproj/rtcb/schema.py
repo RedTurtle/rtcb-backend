@@ -3,6 +3,7 @@ from .authentication.models import User as player_model
 from .team.mutation import CreateTeam, UpdateTeam, DeleteTeam
 from .team.schema import Team
 from .tournament import mutations as MatchMutations
+from .tournament.schema import Tournament
 from graphene_django import DjangoConnectionField
 from graphene_django import DjangoObjectType
 
@@ -40,6 +41,12 @@ class Query(graphene.ObjectType):
         description="all team"
     )
     team = graphene.Node.Field(Team)
+
+    tournaments = DjangoConnectionField(
+        Tournament,
+        description="all tournaments"
+    )
+    tournament = graphene.Node.Field(Tournament)
 
 
 class Mutation(graphene.ObjectType):
