@@ -24,6 +24,8 @@ class CustomUserManager(BaseUserManager):
         """
         if not username:
             raise ValueError('The given username must be set')
+        if not password:
+            raise ValueError('The given username must be set')
         email = self.normalize_email(email)
         username = self.model.normalize_username(username)
         user = self.model(username=username, email=email, **extra_fields)
@@ -68,9 +70,10 @@ class User(AbstractUser):
 
     role = models.CharField(
         verbose_name="Primary role (favorite)",
-        max_length=1,
+        max_length=4,
         choices=ROLES,
-        default='',
+        null=False,
+        blank=False,
     )
 
     versatile = models.BooleanField(

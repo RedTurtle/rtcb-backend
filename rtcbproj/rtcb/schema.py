@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 from .authentication.models import User as player_model
 from .team.mutation import CreateTeam, UpdateTeam, DeleteTeam
+from .authentication.mutation import CreateUser
+# , UpdateUser, DeleteUser
+from .authentication.schema import User
 from .team.schema import Team
 from .tournament import mutations as MatchMutations
 from .tournament.schema import Tournament
@@ -10,18 +13,6 @@ from graphene_django import DjangoObjectType
 import graphene
 
 
-class Player(DjangoObjectType):
-    class Meta:
-        model = player_model
-        interfaces = (graphene.Node, )
-
-    id_db = graphene.ID()
-
-    def resolve_id_db(self, info, **input):
-        """ Ritorna  l'ID del db """
-        return self.id
-
-
 class Query(graphene.ObjectType):
 
     # NODO GENERICO
@@ -29,16 +20,16 @@ class Query(graphene.ObjectType):
 
     # Player
     players = DjangoConnectionField(
-        Player,
+        User,
         description="all players"
     )
-    player = graphene.Node.Field(Player)
+    player = graphene.Node.Field(User)
 
     # Team
     # Player
     teams = DjangoConnectionField(
         Team,
-        description="all team"
+        description="all teams"
     )
     team = graphene.Node.Field(Team)
 
@@ -55,6 +46,9 @@ class Mutation(graphene.ObjectType):
     create_team = CreateTeam.Field()
     update_team = UpdateTeam.Field()
     delete_team = DeleteTeam.Field()
+    create_user = CreateUser.Field()
+    # update_user = UpdateUser.Field()
+    # delete_user = DeleteUser.Field()
     create_match = MatchMutations.CreateMatch.Field()
     create_tournament = MatchMutations.CreateTournament.Field()
     update_tournament = MatchMutations.UpdateTournament.Field()
