@@ -47,3 +47,21 @@ class MatchService(object):
 
         tournament_to_update.save()
         return tournament_to_update
+
+    def delete_tournament(self, input):
+        """ Cancellazione di un torneo.
+        """
+
+        try:
+            tour_to_delete = extract_value_from_input(
+                input=input,
+                field_id='tournament_id',
+                model_type='Tournament',
+                model=tournament_model,
+            )
+        except ObjectDoesNotExist:
+            raise GraphQLError(
+                u'Problemi durante il recupero di un torneo.'
+            )
+
+        return tour_to_delete.delete()
