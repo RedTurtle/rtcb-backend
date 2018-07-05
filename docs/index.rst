@@ -98,3 +98,28 @@ Aggiungere un torneo:
         ok
       }
     }
+
+
+Modificare un torneo:
+
+
+.. code-block:: javascript
+
+    mutation{
+      updateTournament (input: {
+          tournamentId: "1",
+          name: "nuovo nome"}) {
+        ok
+      }
+    }
+
+
+Eliminare un torneo:
+
+.. code-block:: javascript
+
+    mutation{
+      deleteTournament (input: {tournamentId: "1"}) {
+        ok
+      }
+    }
