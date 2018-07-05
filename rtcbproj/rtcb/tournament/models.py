@@ -66,14 +66,14 @@ class Match(models.Model):
         blank=True,
     )
 
-    red_team = models.ForeignKey(
+    red_score = models.ForeignKey(
         MatchScore,
         related_name="red_score",
         null=True,
         on_delete=models.CASCADE
     )
 
-    blue_team = models.ForeignKey(
+    blue_score = models.ForeignKey(
         MatchScore,
         related_name="blue_score",
         null=True,
@@ -96,7 +96,6 @@ class Match(models.Model):
 
     match_ended = models.BooleanField(
         default=False,
-        null=False,
         verbose_name="Is the match ended?",
     )
 

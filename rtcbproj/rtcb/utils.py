@@ -9,6 +9,7 @@ def extract_value_from_input(input, field_id, model_type, model):
     BBB: metodo utilizzato ampiamente nelle mutation per controllare gli ID che
     vengono ricevuti dal front-end.
     """
+
     settingID = input.get(field_id, None)
 
     if not settingID:

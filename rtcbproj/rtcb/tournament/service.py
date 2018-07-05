@@ -1,16 +1,79 @@
 # -*- coding: utf-8 -*-
 from .models import Match as match_model
+from .models import MatchScore as matchscore_model
+from .models import Round as round_model
 from .models import Tournament as tournament_model
 from django.core.exceptions import ObjectDoesNotExist
 from graphql import GraphQLError
 from rtcb.utils import extract_value_from_input
+from ..team.models import Team as team_model
+from rtcb.utils import extract_value_from_input
+
+
+class MatchScoreService(object):
+
+    def createMatchScore(self, input):
+
+        team = extract_value_from_input(
+            input=input,
+            field_id='team',
+            model_type='Team',
+            model=team_model
+        )
+
+        matchScore = matchscore_model(
+            team=team,
+            score=input.get('score', 0),
+            color=input.get('color', None)
+        )
+        matchScore.save()
+
+        return matchScore
 
 
 class MatchService(object):
 
     def createMatch(self, input):
-        match = match_model()
+
+        matchScoreService = MatchScoreService()
+
+        # creo i match_score
+        red_score = matchScoreService.createMatchScore({
+            'team': input.get('red_team', None),
+            'score': input.get('score', 0),
+            'color': input.get('color', None)
+        })
+        blue_score = matchScoreService.createMatchScore({
+            'team': input.get('blue_team', None),
+            'score': input.get('score', 0),
+            'color': input.get('color', None)
+        })
+
+        input_FK = {
+            'match_day': ['match_day', 'Round', round_model],
+            'tournament_id': ['tournament_id', 'Tournament', tournament_model]
+        }
+
+        for key in input_FK.keys():
+            input[key] = extract_value_from_input(
+                input=input,
+                field_id=input_FK[key][0],
+                model_type=input_FK[key][1],
+                model=input_FK[key][2]
+            )
+
+        # initialize the match
+        match = match_model(
+            location=input.get('location', None),
+            red_score=red_score,
+            blue_score=blue_score,
+            match_day=input.get('match_day', None),
+            tournament_id=input.get('tournament_id', None),
+            match_ended=input.get('match_ended', False)
+        )
         match.save()
+
+        # chiamate per inizializzare il match
         return match
 
     def createTournament(self, input):
