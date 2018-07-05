@@ -18,6 +18,13 @@
       <li><a href="/admin">Admin Panel</a></li>
     </ul>
 
+    <h3> Tornei / Tournaments </h3>
+    <ul>
+        {% for elem in tournaments %}
+            <li>{{ elem.name }}</li>
+        {% endfor %}
+    </ul>
+
     <h3> Squadre / Teams </h3>
     <ul>
         {% for elem in teams %}

@@ -4,11 +4,16 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 from graphene_django.views import GraphQLView
 from rtcb.team.models import Team
+from rtcb.tournament.models import Tournament
 from rtcb.authentication.models import User
 
 
 def getTeams():
     return Team.objects.all()
+
+
+def getTournaments():
+    return Tournament.objects.all()
 
 
 def getUsers():
@@ -27,5 +32,6 @@ class SiteRoot(TemplateView):
 
         context['teams'] = getTeams()
         context['users'] = getUsers()
+        context['tournaments'] = getTournaments()
 
         return context
