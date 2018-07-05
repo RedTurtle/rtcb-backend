@@ -49,6 +49,7 @@ class Mutation(graphene.ObjectType):
     update_team = UpdateTeam.Field()
     delete_team = DeleteTeam.Field()
     create_match = MatchMutations.CreateMatch.Field()
+    create_tournament = MatchMutations.CreateTournament.Field()
 
 
 schema = graphene.Schema(

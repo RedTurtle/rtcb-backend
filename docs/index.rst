@@ -3,8 +3,8 @@ RTCB - RedTurtle Calcio-Balilla
 
 
 
-Esempi Query
-::::::::::::
+Esempi Query/Mutation
+:::::::::::::::::::::
 
 
 Squadre/Team
@@ -81,6 +81,20 @@ Eliminare una squadra:
       deleteTeam (input:{
         teamId: "VGVhbToxMA==",
       }) {
+        ok
+      }
+    }
+
+
+Tournament/Tornei
+'''''''''''''''''
+
+Aggiungere un torneo:
+
+.. code-block:: javascript
+
+    mutation {
+      createTournament (input: {name: "World Cup!"}) {
         ok
       }
     }
