@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from ..team.models import Team as team_model
 from .models import Match as match_model
 from .models import MatchScore as matchscore_model
 from .models import Round as round_model
@@ -6,21 +7,20 @@ from .models import Tournament as tournament_model
 from django.core.exceptions import ObjectDoesNotExist
 from graphql import GraphQLError
 from rtcb.utils import extract_value_from_input
-from ..team.models import Team as team_model
-from rtcb.utils import extract_value_from_input
 
 
 class MatchScoreService(object):
 
-    def createMatchScore(self, input):
-
-        team = extract_value_from_input(
+    def _getMatchScore(self, input):
+        return extract_value_from_input(
             input=input,
             field_id='team',
             model_type='Team',
             model=team_model
         )
 
+    def createMatchScore(self, input):
+        team = self._getMatchScore(input)
         matchScore = matchscore_model(
             team=team,
             score=input.get('score', 0),
@@ -29,6 +29,36 @@ class MatchScoreService(object):
         matchScore.save()
 
         return matchScore
+
+    def updateMatchScore(self, input):
+        try:
+            if input.get('team', None):
+                matchscore_to_update = self._getMatchScore(input)
+        except ObjectDoesNotExist:
+            raise GraphQLError(
+                u'Problemi durante il recupero di un matchscore.'
+            )
+
+        if input.get('score', None):
+            matchscore_to_update.score = input.get('score', None)
+        if input.get('color', None):
+            matchscore_to_update.color = input.get('color', None)
+
+        matchscore_to_update.save()
+        return matchscore_to_update
+
+    def updateScore(self, input):
+        try:
+            if input.get('team', None):
+                matchscore_to_update = self._getMatchScore(input)
+        except ObjectDoesNotExist:
+            raise GraphQLError(
+                u'Problemi durante il recupero di un matchscore.'
+            )
+
+        matchscore_to_update.score += 1
+        matchscore_to_update.save()
+        return matchscore_to_update
 
 
 class MatchService(object):
@@ -75,6 +105,15 @@ class MatchService(object):
 
         # chiamate per inizializzare il match
         return match
+
+    def updateMatch(self, input):
+        pass
+
+    def deleteMatch(self, input):
+        pass
+
+
+class TournamentService(object):
 
     def createTournament(self, input):
         """ Crea un nuovo torneo.

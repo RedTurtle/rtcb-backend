@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from .schema import Match, Tournament
-from .service import MatchService
+from .service import TournamentService
 
 import graphene
 
@@ -21,7 +21,7 @@ class CreateMatch(graphene.ClientIDMutation):
 
     @classmethod
     def mutate_and_get_payload(cls, root, info, **input):
-        matchService = MatchService()
+        matchService = TournamentService()
         match = matchService.createMatch(input=input)
         return CreateMatch(match=match, ok=bool(match.id))
 
@@ -38,7 +38,7 @@ class CreateTournament(graphene.ClientIDMutation):
 
     @classmethod
     def mutate_and_get_payload(cls, root, info, **input):
-        matchService = MatchService()
+        matchService = TournamentService()
         tournament = matchService.createTournament(input=input)
         return CreateTournament(tournament=tournament, ok=bool(tournament.id))
 
@@ -56,7 +56,7 @@ class UpdateTournament(graphene.ClientIDMutation):
 
     @classmethod
     def mutate_and_get_payload(cls, root, info, **input):
-        matchService = MatchService()
+        matchService = TournamentService()
         updatedtournament = matchService.update_tournament(input)
         return UpdateTournament(
             tournament=updatedtournament,
@@ -75,6 +75,6 @@ class DeleteTournament(graphene.ClientIDMutation):
 
     @classmethod
     def mutate_and_get_payload(cls, root, info, **input):
-        matchService = MatchService()
+        matchService = TournamentService()
         object_deleted = matchService.delete_tournament(input)
         return DeleteTournament(ok=True if (object_deleted[0] == 1) else False)
