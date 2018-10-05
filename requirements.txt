@@ -1,4 +1,4 @@
-django==2.0.6
+django==2.0.9
 graphene_django==2.0.0
 graphene==2.1.2
 graphql-core==2.0
