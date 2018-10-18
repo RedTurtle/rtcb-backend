@@ -2,17 +2,31 @@ RTCB - Specifiche di progetto
 -----------------------------
 
 
+## Cosa deve fare?
 
-Cosa deve fare?
-:::::::::::::::
+- [ ] [CRUD Player](#giocatore)
+- [x] [CRUD Team](#squadre)
+- [ ] Partita singola?
+- [x] CRUD Tournament
+- [ ] Associo/aggiungo squadre ad un torneo
+  - [ ] "Inizia torneo" -> genera Round -> genera Match
+- [ ] Visualizza Calendario
+- [ ] CRUD MatchScore
+- [ ] Crea Match singolo extra torneo
+- [ ] Visualizza Classifica
 
+---
 
-1 - CRUD Player []
-2 - CRUD Team [x]
-3 - CRUD Tournament [x]
-4 - Associo/aggiungo squadre ad un torneo
-4.1 - Inizia torneo -> genera Round -> genera Match
-5 - Visualizza Calendario []
-6 - CRUD MatchScore []
-7 - Crea Match singolo extra torneo []
-8 - Visualizza Classifica []
+### Giocatore
+
+- [ ] Registrazione?
+- [ ] Immagine profilo?
+- [ ] Login
+
+---
+
+### Squadre
+
+- [ ] --
+
+---
