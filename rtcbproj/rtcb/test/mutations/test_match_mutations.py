@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from ...tournament.mutations import CreateMatch
+from ...match.mutations import CreateMatch
 
 import pytest
 import graphene
