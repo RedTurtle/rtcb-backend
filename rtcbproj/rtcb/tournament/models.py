@@ -9,6 +9,13 @@ class Tournament(models.Model):
         max_length=50,
     )
 
+    teams = models.ManyToManyField(
+        Team,
+        verbose_name="Squadre",
+        related_name="tournaments",
+        related_query_name="tournament",
+    )
+
     def __str__(self):
         return self.name
 
