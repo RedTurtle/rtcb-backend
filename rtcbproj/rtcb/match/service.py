@@ -69,13 +69,13 @@ class MatchService(object):
         # creo i match_score
         red_score = matchScoreService.createMatchScore({
             'team': input.get('red_team', None),
-            'score': input.get('score', 0),
-            'color': input.get('color', None)
+            'score': 0,
+            'color': 'red',
         })
         blue_score = matchScoreService.createMatchScore({
             'team': input.get('blue_team', None),
-            'score': input.get('score', 0),
-            'color': input.get('color', None)
+            'score': 0,
+            'color': 'blue',
         })
 
         input_FK = {
@@ -95,7 +95,6 @@ class MatchService(object):
             location=input.get('location', None),
             red_score=red_score,
             blue_score=blue_score,
-            match_day=input.get('match_day', None),
             tournament_id=input.get('tournament_id', None),
             match_ended=input.get('match_ended', False)
         )
