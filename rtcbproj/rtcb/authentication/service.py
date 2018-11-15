@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 from .models import User as UserModel
 from django.core.exceptions import ObjectDoesNotExist
 from graphql import GraphQLError

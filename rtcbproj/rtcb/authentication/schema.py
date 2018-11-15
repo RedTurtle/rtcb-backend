@@ -23,11 +23,5 @@ class User(DjangoObjectType):
         """ Ritorna  l'ID del db """
         return self.id
 
-    def resolve_password(self, info, **input):
-        """ Ritorna  l'ID del db """
-        return self.id
-    
     def resolve_role(self, info, **kwargs):
         return self.role
-
-
