@@ -5,7 +5,8 @@ from .authentication.mutation import CreateUser
 # , UpdateUser, DeleteUser
 from .authentication.schema import User
 from .team.schema import Team
-from .tournament import mutations as MatchMutations
+from .tournament import mutations as TournamentMutations
+from .match import mutations as MatchMutations
 from .tournament.schema import Tournament
 from graphene_django import DjangoConnectionField
 from graphene_django import DjangoObjectType
@@ -50,9 +51,9 @@ class Mutation(graphene.ObjectType):
     # update_user = UpdateUser.Field()
     # delete_user = DeleteUser.Field()
     create_match = MatchMutations.CreateMatch.Field()
-    create_tournament = MatchMutations.CreateTournament.Field()
-    update_tournament = MatchMutations.UpdateTournament.Field()
-    delete_tournament = MatchMutations.DeleteTournament.Field()
+    create_tournament = TournamentMutations.CreateTournament.Field()
+    update_tournament = TournamentMutations.UpdateTournament.Field()
+    delete_tournament = TournamentMutations.DeleteTournament.Field()
 
 
 schema = graphene.Schema(
