@@ -16,7 +16,7 @@ class CreateUser(relay.ClientIDMutation):
         password = graphene.String(required=True)
         role = graphene.String(required=True)
         versatile = graphene.Boolean(required=False)
-    
+
     ok = graphene.Boolean()
     user = graphene.Field(User)
 

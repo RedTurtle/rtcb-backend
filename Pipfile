@@ -16,6 +16,8 @@ django-cors-headers = "==2.1.0"
 psycopg2-binary = "==2.7.5"
 gunicorn = "==19.8.1"
 faker = "==0.8.16"
+djangorestframework = "*"
+djangorestframework-jwt = "*"
 
 [requires]
 python_version = "3.6"
