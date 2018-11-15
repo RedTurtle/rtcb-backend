@@ -3,7 +3,8 @@ from .authentication.models import User
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from rtcb.team.models import Team
-from rtcb.tournament.models import Match, Tournament
+from rtcb.tournament.models import Tournament
+from rtcb.match.models import Match
 from django.contrib.auth.forms import (
     AdminPasswordChangeForm, UserChangeForm, UserCreationForm,
 )
