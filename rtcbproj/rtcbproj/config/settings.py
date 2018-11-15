@@ -3,6 +3,8 @@
 from .base import *  # noqa
 from .omissis import *  # noqa
 
+import datetime
+
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
@@ -17,9 +19,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rtcb',
 
+    'rest_framework',
+    'rest_framework_jwt',
     'graphene_django',
+    'rtcb',
 ]
 
 GRAPHENE = {
@@ -37,6 +41,20 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'rtcbproj.urls'
+
+
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=1),
+    'JWT_ALLOW_REFRESH': True,
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    )
+}
 
 
 # sqlite3 database - dev
