@@ -1,15 +1,13 @@
 # -*- coding: utf-8 -*-
-from .authentication.models import User as player_model
-from .team.mutation import CreateTeam, UpdateTeam, DeleteTeam
 from .authentication.mutation import CreateUser
-# , UpdateUser, DeleteUser
 from .authentication.schema import User
+from .match import mutations as MatchMutations
+from .match.schema import Match
+from .team.mutation import CreateTeam, UpdateTeam, DeleteTeam
 from .team.schema import Team
 from .tournament import mutations as TournamentMutations
-from .match import mutations as MatchMutations
 from .tournament.schema import Tournament
 from graphene_django import DjangoConnectionField
-from graphene_django import DjangoObjectType
 
 import graphene
 
@@ -20,25 +18,21 @@ class Query(graphene.ObjectType):
     node = graphene.Node.Field()
 
     # Player
-    players = DjangoConnectionField(
-        User,
-        description="all players"
-    )
+    players = DjangoConnectionField(User, description="all players")
     player = graphene.Node.Field(User)
 
     # Team
     # Player
-    teams = DjangoConnectionField(
-        Team,
-        description="all teams"
-    )
+    teams = DjangoConnectionField(Team, description="all teams")
     team = graphene.Node.Field(Team)
 
     tournaments = DjangoConnectionField(
-        Tournament,
-        description="all tournaments"
+        Tournament, description="all tournaments"
     )
     tournament = graphene.Node.Field(Tournament)
+
+    matches = DjangoConnectionField(Match, description="all matches")
+    match = graphene.Node.Field(Match)
 
 
 class Mutation(graphene.ObjectType):
@@ -56,7 +50,4 @@ class Mutation(graphene.ObjectType):
     delete_tournament = TournamentMutations.DeleteTournament.Field()
 
 
-schema = graphene.Schema(
-    query=Query,
-    mutation=Mutation
-)
+schema = graphene.Schema(query=Query, mutation=Mutation)
