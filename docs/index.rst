@@ -123,3 +123,16 @@ Eliminare un torneo:
         ok
       }
     }
+
+
+Match
+'''''
+
+.. code-block:: javascript
+
+    mutation {
+      createMatch(input:{redTeam: "id1", blueTeam: "id2", location:"Sala relax"}) {
+        ok
+        clientMutationId
+      }
+    }
