@@ -51,6 +51,9 @@ RTCB - TODO BACKEND
 
 ### Squadre
 
-- [ ] --
+- [x] create team
+- [x] retrieve team
+- [x] update team
+- [x] delete team
 
 ---
