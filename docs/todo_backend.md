@@ -31,7 +31,7 @@ Partita singola:
 
 - [ ] query per match singolo
 - [ ] query matches per avere tutte le partite (singole)
-- [ ] create match
+- [x] create match
 - [ ] update match (ma non riguarda i punteggi)
 - [ ] delete match
 
