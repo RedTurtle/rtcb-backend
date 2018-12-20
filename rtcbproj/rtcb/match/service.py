@@ -9,12 +9,15 @@ from rtcb.utils import extract_value_from_input
 
 
 class MatchScoreService(object):
-    def _getMatchTeam(self, input):
+    def _getMatchScore(self, input):
         return extract_value_from_input(
-            input=input, field_id='team', model_type='Team', model=team_model
+            input=input,
+            field_id='matchscore_id',
+            model_type='MatchScore',
+            model=matchscore_model,
         )
 
-    def _getMatchScore(self, input):
+    def _getTeam(self, input):
         return extract_value_from_input(
             input=input, field_id='team', model_type='Team', model=team_model
         )
@@ -31,14 +34,10 @@ class MatchScoreService(object):
         return matchScore
 
     def updateMatchScore(self, input):
-        try:
-            if input.get('team', None):
-                matchscore_to_update = self._getMatchScore(input)
-        except ObjectDoesNotExist:
-            raise GraphQLError(
-                u'Problemi durante il recupero di un matchscore.'
-            )
-
+        matchscore_to_update = self._getMatchScore(input)
+        if input.get('team', None):
+            team_to_update = self._getTeam(input)
+            matchscore_to_update.team = team_to_update
         if input.get('score', None):
             matchscore_to_update.score = input.get('score', None)
         if input.get('color', None):
@@ -63,21 +62,17 @@ class MatchScoreService(object):
 
 class MatchService(object):
     def _getMatch(self, input):
-        try:
-            return extract_value_from_input(
-                input=input,
-                field_id='match_id',
-                model_type='Match',
-                model=match_model,
-            )
-        except ValueError:
-            raise GraphQLError(
-                u'Nessun match trovato con id {0}.'.format(
-                    input.get('match_id')
-                )
-            )
-        except ObjectDoesNotExist:
-            raise GraphQLError(u'Problemi durante il recupero di un match.')
+        return extract_value_from_input(
+            input=input,
+            field_id='match_id',
+            model_type='Match',
+            model=match_model,
+        )
+
+    def _getTeam(self, team_id):
+        return extract_value_from_input(
+            input={}, field_id='team', model_type='Team', model=team_model
+        )
 
     def checkDuplicate(self, input):
         """
@@ -131,26 +126,31 @@ class MatchService(object):
         return match
 
     def updateMatch(self, input):
+
+        skip_fields = ['match_id', 'red_team', 'blue_team']
+
         self.checkDuplicate(input)
         match_to_update = self._getMatch(input)
 
-        for k, v in input:
-            if k == 'team_id':
+        for k, v in input.items():
+            if k in skip_fields:
                 continue
-            if not hasattr(match_to_update, k):
-                continue
-            setattr(
-                match_to_update,
-                k,
-                extract_value_from_input(
-                    input=input,
-                    field_id=k,
-                    model_type='Match',
-                    model=match_model,
-                ),
+            setattr(match_to_update, k, v)
+        matchScoreService = MatchScoreService()
+        if 'red_team' in input:
+            red_score = getattr(match_to_update, 'red_score', None)
+            matchScoreService.updateMatchScore(
+                {'matchscore_id': red_score.id, 'team': input['red_team']}
+            )
+        if 'blue_team' in input:
+            blue_score = getattr(match_to_update, 'blue_score', None)
+            matchScoreService.updateMatchScore(
+                {'matchscore_id': blue_score.id, 'team': input['blue_team']}
             )
         match_to_update.save()
-        return match_to_update
+
+        # BBB: da verificare..qui si fa una query forse inutile.
+        return self._getMatch(input)
 
     def deleteMatch(self, input):
         pass
