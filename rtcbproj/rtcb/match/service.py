@@ -9,13 +9,18 @@ from rtcb.utils import extract_value_from_input
 
 
 class MatchScoreService(object):
+    def _getMatchTeam(self, input):
+        return extract_value_from_input(
+            input=input, field_id='team', model_type='Team', model=team_model
+        )
+
     def _getMatchScore(self, input):
         return extract_value_from_input(
             input=input, field_id='team', model_type='Team', model=team_model
         )
 
     def createMatchScore(self, input):
-        team = self._getMatchScore(input)
+        team = self._getMatchTeam(input)
         matchScore = matchscore_model(
             team=team,
             score=input.get('score', 0),

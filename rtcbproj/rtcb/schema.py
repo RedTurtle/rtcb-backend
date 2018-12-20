@@ -26,11 +26,13 @@ class Query(graphene.ObjectType):
     teams = DjangoConnectionField(Team, description="all teams")
     team = graphene.Node.Field(Team)
 
+    # Tournament
     tournaments = DjangoConnectionField(
         Tournament, description="all tournaments"
     )
     tournament = graphene.Node.Field(Tournament)
 
+    # match
     matches = DjangoConnectionField(Match, description="all matches")
     match = graphene.Node.Field(Match)
 

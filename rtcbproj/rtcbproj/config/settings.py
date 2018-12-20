@@ -10,7 +10,6 @@ ALLOWED_HOSTS = [
     'localhost',
 ]
 
-
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -38,6 +37,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'rtcb.authentication.middleware.JWTAuthenticationMiddleware',
 ]
 
 ROOT_URLCONF = 'rtcbproj.urls'
