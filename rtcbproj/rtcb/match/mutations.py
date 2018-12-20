@@ -21,6 +21,5 @@ class CreateMatch(graphene.ClientIDMutation):
 
     @classmethod
     def mutate_and_get_payload(cls, root, info, **input):
-        matchService = MatchService()
-        match = matchService.createMatch(input=input)
+        match = MatchService().createMatch(input=input)
         return CreateMatch(match=match, ok=bool(match.id))

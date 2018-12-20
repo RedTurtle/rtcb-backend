@@ -1,18 +1,8 @@
 # -*- coding: utf-8 -*-
-from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
 from django.http import JsonResponse
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework.request import Request
-from rtcb import logger
-
-import logging
-
-hdlr = logging.FileHandler(settings.LOGGER_FILE_HANDLER)
-formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
-hdlr.setFormatter(formatter)
-logger.setLevel(logging.DEBUG)
-logger.addHandler(hdlr)
 
 
 class JWTAuthenticationMiddleware(object):
@@ -25,21 +15,26 @@ class JWTAuthenticationMiddleware(object):
 
         if not request.user.is_authenticated:  # adminsite user
             user = None
-            user_jwt = request.META.get('HTTP_AUTHORIZATION', '').split()
+            user_jwt = request.META.get("HTTP_AUTHORIZATION", "").split()
 
-            if len(user_jwt) == 2 and user_jwt[0].lower() == 'jwt':
+            if len(user_jwt) == 2 and user_jwt[0].lower() == "jwt":
                 # token presente
                 try:
                     user = JSONWebTokenAuthentication().authenticate(
                         Request(request)
                     )[0]
                 except Exception as err:
-                    return JsonResponse({
-                        'errors': [{
-                            'message': err.detail,
-                            'status': err.status_code
-                        }]
-                    }, status=err.status_code)
+                    return JsonResponse(
+                        {
+                            "errors": [
+                                {
+                                    "message": err.detail,
+                                    "status": err.status_code,
+                                }
+                            ]
+                        },
+                        status=err.status_code,
+                    )
 
                 # controllo se l'utente si è autenticato
                 if user is not None:
