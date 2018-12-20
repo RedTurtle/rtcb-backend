@@ -44,9 +44,9 @@ Partita singola:
 
 ### Torneo
 
-- [ ] create torneo
+- [x] create torneo
   - [ ] genera tutte le partite da fare (tutti contro tutti)
-- [ ] delete torneo
+- [x] delete torneo
 
 
 ---
