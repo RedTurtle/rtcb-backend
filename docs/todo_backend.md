@@ -27,9 +27,11 @@ RTCB - TODO BACKEND
 
 ### Match
 
+Partita singola:
+
 - [ ] query per match singolo
 - [ ] query matches per avere tutte le partite (singole)
-- [ ] create match
+- [x] create match
 - [ ] update match (ma non riguarda i punteggi)
 - [ ] delete match
 
@@ -42,9 +44,10 @@ RTCB - TODO BACKEND
 
 ### Torneo
 
-- [ ] create torneo
+- [x] create torneo
   - [ ] genera tutte le partite da fare (tutti contro tutti)
-- [ ] delete torneo
+- [x] update torneo
+- [x] delete torneo
 
 
 ---
