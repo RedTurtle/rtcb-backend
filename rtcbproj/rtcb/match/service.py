@@ -9,13 +9,9 @@ from rtcb.utils import extract_value_from_input
 
 
 class MatchScoreService(object):
-
     def _getMatchScore(self, input):
         return extract_value_from_input(
-            input=input,
-            field_id='team',
-            model_type='Team',
-            model=team_model
+            input=input, field_id='team', model_type='Team', model=team_model
         )
 
     def createMatchScore(self, input):
@@ -23,7 +19,7 @@ class MatchScoreService(object):
         matchScore = matchscore_model(
             team=team,
             score=input.get('score', 0),
-            color=input.get('color', None)
+            color=input.get('color', None),
         )
         matchScore.save()
 
@@ -61,22 +57,48 @@ class MatchScoreService(object):
 
 
 class MatchService(object):
+    def _getMatch(self, input):
+        try:
+            return extract_value_from_input(
+                input=input,
+                field_id='match_id',
+                model_type='Match',
+                model=match_model,
+            )
+        except ValueError:
+            raise GraphQLError(
+                u'Nessun match trovato con id {0}.'.format(
+                    input.get('match_id')
+                )
+            )
+        except ObjectDoesNotExist:
+            raise GraphQLError(u'Problemi durante il recupero di un match.')
+
+    def checkDuplicate(self, input):
+        """
+        Verifica che non siano stati inseriti due team uguali
+        """
+        if 'red_team' not in input or 'blue_team' not in input:
+            # siamo nell'update..non sono campi obbligatori
+            return
+        if input.get('red_team') == input.get('blue_team'):
+            raise GraphQLError(
+                u'Non si può impostare due volte la stessa squadra per un match.'
+            )
 
     def createMatch(self, input):
 
         matchScoreService = MatchScoreService()
 
+        self.checkDuplicate(input)
+
         # creo i match_score
-        red_score = matchScoreService.createMatchScore({
-            'team': input.get('red_team', None),
-            'score': 0,
-            'color': 'red',
-        })
-        blue_score = matchScoreService.createMatchScore({
-            'team': input.get('blue_team', None),
-            'score': 0,
-            'color': 'blue',
-        })
+        red_score = matchScoreService.createMatchScore(
+            {'team': input.get('red_team', None), 'score': 0, 'color': 'red'}
+        )
+        blue_score = matchScoreService.createMatchScore(
+            {'team': input.get('blue_team', None), 'score': 0, 'color': 'blue'}
+        )
 
         input_FK = {
             'tournament_id': ['tournament_id', 'Tournament', tournament_model]
@@ -87,7 +109,7 @@ class MatchService(object):
                 input=input,
                 field_id=input_FK[key][0],
                 model_type=input_FK[key][1],
-                model=input_FK[key][2]
+                model=input_FK[key][2],
             )
 
         # initialize the match
@@ -96,7 +118,7 @@ class MatchService(object):
             red_score=red_score,
             blue_score=blue_score,
             tournament_id=input.get('tournament_id', None),
-            match_ended=input.get('match_ended', False)
+            match_ended=input.get('match_ended', False),
         )
         match.save()
 
@@ -104,7 +126,26 @@ class MatchService(object):
         return match
 
     def updateMatch(self, input):
-        pass
+        self.checkDuplicate(input)
+        match_to_update = self._getMatch(input)
+
+        for k, v in input:
+            if k == 'team_id':
+                continue
+            if not hasattr(match_to_update, k):
+                continue
+            setattr(
+                match_to_update,
+                k,
+                extract_value_from_input(
+                    input=input,
+                    field_id=k,
+                    model_type='Match',
+                    model=match_model,
+                ),
+            )
+        match_to_update.save()
+        return match_to_update
 
     def deleteMatch(self, input):
         pass
