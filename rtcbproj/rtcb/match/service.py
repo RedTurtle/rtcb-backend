@@ -74,7 +74,7 @@ class MatchService(object):
             input={}, field_id="team", model_type="Team", model=team_model
         )
 
-    def checkDuplicate(self, input):
+    def _checkDuplicate(self, input):
         """
         Verifica che non siano stati inseriti due team uguali
         """
@@ -90,7 +90,7 @@ class MatchService(object):
 
         matchScoreService = MatchScoreService()
 
-        self.checkDuplicate(input)
+        self._checkDuplicate(input)
 
         # creo i match_score
         red_score = matchScoreService.createMatchScore(
