@@ -41,6 +41,19 @@ class UpdateMatch(graphene.ClientIDMutation):
 
     @classmethod
     def mutate_and_get_payload(cls, root, info, **input):
-        matchService = MatchService()
-        updated_match = matchService.updateMatch(input)
+        updated_match = MatchService().updateMatch(input)
         return UpdateMatch(match=updated_match, ok=bool(updated_match.id))
+
+
+class DeleteMatch(graphene.ClientIDMutation):
+    """ Cancellazione di una partita """
+
+    class Input:
+        match_id = graphene.ID(required=True)
+
+    ok = graphene.Boolean()
+
+    @classmethod
+    def mutate_and_get_payload(cls, root, info, **input):
+        delete_match = MatchService().updateMatch(input)
+        return DeleteMatch(ok=True if delete_match > 0 else False)

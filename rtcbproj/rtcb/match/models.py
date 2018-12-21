@@ -50,6 +50,10 @@ class Match(models.Model):
         Tournament, null=True, on_delete=models.CASCADE, related_name="match"
     )
 
+    match_started = models.BooleanField(
+        default=False, verbose_name="Is the match started?"
+    )
+
     match_ended = models.BooleanField(
         default=False, verbose_name="Is the match ended?"
     )
