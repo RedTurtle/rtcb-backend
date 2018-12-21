@@ -69,14 +69,11 @@ class MatchService(object):
             model=match_model,
         )
 
-<<<<<<< Updated upstream
     def _getTeam(self, team_id):
         return extract_value_from_input(
             input={}, field_id="team", model_type="Team", model=team_model
         )
 
-=======
->>>>>>> Stashed changes
     def _checkDuplicate(self, input):
         """
         Verifica che non siano stati inseriti due team uguali
@@ -129,14 +126,10 @@ class MatchService(object):
         return match
 
     def updateMatch(self, input):
-<<<<<<< Updated upstream
 
         skip_fields = ["match_id", "red_team", "blue_team"]
 
         self.checkDuplicate(input)
-=======
-        self._checkDuplicate(input)
->>>>>>> Stashed changes
         match_to_update = self._getMatch(input)
 
         for k, v in input.items():
@@ -168,26 +161,15 @@ class MatchService(object):
 
         match = extract_value_from_input(
             input=input,
-<<<<<<< Updated upstream
             field_id="match_id",
             model_type="Match",
-=======
-            field_id='match_id',
-            model_type='Match',
->>>>>>> Stashed changes
             model=match_model,
         )
 
         # controllo che il match sia cancellabile
         if match.tournament or match.match_started:
             # il match è iniziato
-<<<<<<< Updated upstream
             raise GraphQLError(u"Il Match non si può eliminare.")
-=======
-            raise GraphQLError(
-                u'Il Match non si può eliminare.'
-            )
->>>>>>> Stashed changes
 
         # se lo è elimino il match
         return match.delete()
