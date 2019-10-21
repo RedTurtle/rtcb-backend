@@ -82,3 +82,9 @@ dell'applicazione `rtcb`! **Non è reversibile**.
 - [x] Ritornare l'ID del database di un Utente
 - [ ] Generazione automatica delle squadre in base ai ruoli preferiti
 - [ ] Generazione automatica dei turni/round
+
+
+## License
+
+This software is released under the Apache License 2.0.
+See the LICENSE file.
