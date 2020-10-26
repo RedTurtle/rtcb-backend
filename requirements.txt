@@ -1,3 +1,7 @@
+# wheel first
+wheel==0.35.1
+
+# then the others
 aniso8601==3.0.2
 django-cors-headers==2.1.0
 django-filter==1.1.0
